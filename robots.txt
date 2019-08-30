@@ -1,0 +1,8 @@
+User-agent: *  
+Allow : /include/
+Disallow: /css/
+Disallow: /favicon/
+Disallow: /font/
+Disallow: /img/
+Disallow: /js/
+Disallow: /PHPMailer/
