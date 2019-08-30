@@ -1,0 +1,721 @@
+//Import des css de reset et de font
+@import "_reset.scss";
+@import "_font.scss";
+
+//Variables du site (non bootstrap)
+$bleuETC: #2c2a60;
+$orangeETC: #EC6608;
+$vertETC: #95C11F;
+$bleuClairETC: #009FE3;
+$grisETC: #81929F;
+$grisClair:#B0b0b0;
+$grisMoyen:#606060;
+$backColor: #F9F5F1;
+
+//Zone d'override des varibales de bootstrap 4
+$primary: $bleuETC;
+$spacer: 1rem;
+$spacers: (
+    6: ($spacer * 6)
+);
+//Fin zone d'override
+
+//Importation de bootstrap avec les variables override (toujours mettre l'import de bootstrap après l'override, du au SASS et au valeur !default de bootstrap 4
+@import "bootstrap/bootstrap.scss";
+
+//Début du CSS
+//Body
+body{
+    background-color: $backColor;
+    font-family: "Avenir", Arial, Helvetica, sans-serif;
+    color:$primary;
+    scroll-behavior: smooth;
+}
+//Header (header.php)
+.header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 10em;
+    z-index: 998;
+    .wrap {
+        overflow: hidden;
+        a img {
+            margin: 1.5em;
+            width: 10em;
+            height: auto;
+        }
+    }
+    .navigation {
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        top: 0;
+        right: -100%;
+        z-index: 999;
+        transition: 1s ease-in-out all;
+        align-items: start;
+        background: #3D3B6C;
+        &.open {
+            right: 0;
+        }
+        ul {
+            width: 60%;
+            height: 100%;
+            padding: 8% 5%;
+            background: $primary;
+            font-family: 'Avenir heavy';
+            li {
+                margin-bottom: 5vh;
+                a:link, a:visited {
+                    font-size: 3vmax;
+                    color: #fff;
+                    text-decoration: none;
+                }
+            }
+            .dropdown-menu a:link, .dropdown-menu a:visited {
+                color: $primary;
+            }
+        }
+    }
+}
+.navicon {
+    width: 3.5rem;
+    height: 3.25rem;
+    right: 4em;
+    top: 4em;
+    padding: 0;
+    position: absolute;
+    transform: rotate(0deg);
+    transition: .5s ease-in-out;
+    background: none;
+    border: none;
+    z-index: 1000;
+    cursor: pointer;
+    font-size: 0.78rem;
+    text-align: center;
+    color: $primary;
+    &.white {
+        color: #fff;
+    }
+    span {
+        &:nth-child(1), &:nth-child(2) {
+            display: block;
+            position: absolute;
+            height: 4px;
+            width: 3rem;
+            border-radius: 6px;
+            opacity: 1;
+            left: 0;
+            background: $primary;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+        &:nth-child(1).white, &:nth-child(2).white {
+            background: #fff;
+        }
+        &:nth-child(1) {
+            top: 0;
+            transform-origin: left center;
+        }
+        &:nth-child(2) {
+            top: 0.8rem;
+            transform-origin: left center;
+        }
+        &:nth-child(3)::after {
+            display: block;
+            position: absolute;
+            font-weight: 700;
+            top: 1.6rem;
+            content: "menu";
+            letter-spacing: 0.25rem;
+            transition: .25s ease-in-out;
+        }
+    }
+    &.open {
+        position: fixed;
+        span {
+            color: #fff;
+            &:nth-child(1), &:nth-child(2) {
+                background: #FFF;
+            }
+            &:nth-child(1) {
+                transform: rotate(45deg);
+                top: -0.1875rem;
+            }
+            &:nth-child(2) {
+                transform: rotate(-45deg);
+                top: 2rem;
+            }
+            &:nth-child(3)::after {
+                display: block;
+                position: absolute;
+                font-weight: 700;
+                top: 2.2rem;
+                font-size: 0.56rem;
+                content: "fermer";
+                letter-spacing: 0;
+                transition: .25s ease-in-out;
+            }
+        }
+    }
+}
+@media (min-width: 992px) {
+    .header {
+        .wrap {
+            a img {
+                width: 17em;
+            }
+        }
+        .navigation {
+            width: 50%;
+            right: -50%;
+            ul {
+                li {
+                    a:link, a:visited {
+                        font-size: 3vmin;
+                    }
+                }
+            }
+        }
+    }
+    .navicon {
+        color: #FFF;
+        span {
+            &:nth-child(1), &:nth-child(2) {
+                background: #FFF;
+            }
+        }
+    }
+}
+@media (min-width: 1200px) {
+    .header {
+        .navigation {
+            width: 30%;
+            right: -30%;
+        }
+    }
+}
+//Contact Area (contact.php)
+.contactArea {
+    color: white;
+    font-family: 'Avenir heavy';
+    margin: 0;
+    .row {
+        background: $primary;
+    }
+    form .row {
+        padding: 2em 0;
+    }
+    h2, p, small {
+        text-align: center;
+    }
+    h2 {
+        margin: 5vh 0;
+        font-size: 2em;
+    }
+    p {
+        font-size: 1.5em;
+    }
+    button {
+        background: #fff;
+        border: 0;
+        color: $primary;
+        padding: 0.75em 0;
+        border-radius: 6px;
+        font-size: 1.125em;
+    }
+}
+/**
+* Make the field a flex-container, reverse the order so label is on top.
+*/
+.field {
+    display: flex;
+    flex-flow: column-reverse;
+    margin-bottom: 1em;
+}
+.field-row{
+    display: flex;
+    flex-flow: row;
+    margin-bottom: 1em;
+}
+/**
+* Add a transition to the label and input.
+* I'm not even sure that touch-action: manipulation works on
+* inputs, but hey, it's new and cool and could remove the 
+* pesky delay.
+*/
+label, input {
+    transition: all 0.2s;
+    touch-action: manipulation;
+}
+input, select, textarea {
+    color: white;
+    font-size: 1.5em;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    font-family: inherit;
+    -webkit-appearance: none;
+    border-radius: 0;
+    padding: 0;
+    cursor: text;
+}
+.appear {
+    -webkit-appearance: checkbox;
+    border-bottom: none;
+    cursor: auto;
+    margin-right: 0.5em;
+}
+input:required, select:required, textarea:required {
+    box-shadow: none;
+}
+input:focus {
+    outline: 0;
+    border-bottom: 1px solid #ccc;
+}
+select {
+    background: url('../img/arrow-down.png') no-repeat right;
+}
+option {
+    color: $primary;
+}
+label {
+    letter-spacing: 0.05em;
+}
+label::after {
+    content: "*";
+}
+/**
+* Translate down and scale the label up to cover the placeholder,
+* when following an input (with placeholder-shown support).
+* Also make sure the label is only on one row, at max 2/3rds of the
+* field—to make sure it scales properly and doesn't wrap.
+*/
+input:placeholder-shown + label {
+    cursor: text;
+    max-width: 66.66%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transform-origin: left bottom;
+    transform: translate(0, 2.125rem) scale(1.5);
+}
+/**
+* When the element is focused, remove the label transform.
+* Also, do this when the placeholder is _not_ shown, i.e. when 
+* there's something in the input at all.
+*/
+input:not(:placeholder-shown) + label,
+input:focus + label {
+    transform: translate(0, 0) scale(1);
+    cursor: pointer;
+}
+//Footer (footer.php)
+footer {
+    color: white;
+    font-family: 'Avenir heavy';
+    margin: 0;
+    .row {
+        padding-top: 2.5vh;
+        background: $grisETC;
+        p {
+            text-align: center;
+        }
+        li {
+            font-size: 1.375em;
+        }
+    }
+    a:link, a:visited {
+        text-decoration: none;
+        color: white;
+    }
+}
+#cookieConsent {
+    z-index: 998;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size:1em;
+    color: $primary;
+    background-color: #fff;
+    border-top: 1px $primary solid;
+    padding: 0.5em;
+}
+@media(min-width: 992px){
+    #cookieConsent {
+        font-size:1.25em;
+        height: 8vh;
+    }
+}
+.mailAlert{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(15, 15, 15, 0.8);
+    width: 100%;
+    height: 100%;
+    z-index: 15555;
+}
+
+//Début du CSS Index.php (base des autres pages)
+//Hero (background de toutes les pages dans ce hero)
+.bg-container {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    overflow: hidden;
+    .bg {
+        background-image: url('../img/NomadBack.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-position-y: 5%;
+        height: 100%;
+        &-standard {
+            background-image: url('../img/standard.jpg');
+        }
+        &-ET {
+            background-image: url('../img/back-ET.jpg');
+        }
+        &-AE {
+            background-image: url('../img/back-AE.jpg')
+        }
+        &-A {
+            background-image: url('../img/back-A.jpg')
+        }
+        &-I {
+            background-image: url('../img/back-I.jpg')
+        }
+        &-N3D {
+            background-image: url('../img/back-N3D.jpg')
+        }
+    }
+}
+@keyframes BackAnim {
+    from {
+        background-image: url('../img/DesktopBack1.png');
+    }
+    10% {
+        background-image: url('../img/DesktopBack1.png');
+    }
+    20% {
+        background-image: url('../img/DesktopBack2.png');
+    }
+    30% {
+        background-image: url('../img/DesktopBack2.png');
+    }
+    40% {
+        background-image: url('../img/DesktopBack3.png');
+    }
+    50% {
+        background-image: url('../img/DesktopBack3.png');
+    }
+    60% {
+        background-image: url('../img/DesktopBack4.png');
+    }
+    70% {
+        background-image: url('../img/DesktopBack4.png');
+    }
+    80% {
+        background-image: url('../img/DesktopBack5.png');
+    }
+    90% {
+        background-image: url('../img/DesktopBack5.png');
+    }
+    to {
+        background-image: url('../img/DesktopBack1.png');
+    }
+}
+@-webkit-keyframes BackAnim {
+    from {
+        background-image: url('../img/DesktopBack1.png');
+    }
+    10% {
+        background-image: url('../img/DesktopBack1.png');
+    }
+    20% {
+        background-image: url('../img/DesktopBack2.png');
+    }
+    30% {
+        background-image: url('../img/DesktopBack2.png');
+    }
+    40% {
+        background-image: url('../img/DesktopBack3.png');
+    }
+    50% {
+        background-image: url('../img/DesktopBack3.png');
+    }
+    60% {
+        background-image: url('../img/DesktopBack4.png');
+    }
+    70% {
+        background-image: url('../img/DesktopBack4.png');
+    }
+    80% {
+        background-image: url('../img/DesktopBack5.png');
+    }
+    90% {
+        background-image: url('../img/DesktopBack5.png');
+    }
+    to {
+        background-image: url('../img/DesktopBack1.png');
+    }
+}
+@-moz-keyframes BackAnim {
+    from {
+        background-image: url('../img/DesktopBack1.png');
+    }
+    10% {
+        background-image: url('../img/DesktopBack1.png');
+    }
+    20% {
+        background-image: url('../img/DesktopBack2.png');
+    }
+    30% {
+        background-image: url('../img/DesktopBack2.png');
+    }
+    40% {
+        background-image: url('../img/DesktopBack3.png');
+    }
+    50% {
+        background-image: url('../img/DesktopBack3.png');
+    }
+    60% {
+        background-image: url('../img/DesktopBack4.png');
+    }
+    70% {
+        background-image: url('../img/DesktopBack4.png');
+    }
+    80% {
+        background-image: url('../img/DesktopBack5.png');
+    }
+    90% {
+        background-image: url('../img/DesktopBack5.png');
+    }
+    to {
+        background-image: url('../img/DesktopBack1.png');
+    }
+}
+@media (min-width: 992px) {
+    .bg-container {
+        position: fixed;
+        .bg {
+            -webkit-animation: BackAnim ease-in-out 35s infinite;
+            -moz-animation: BackAnim ease-in-out 35s infinite;
+            animation: BackAnim ease-in-out 35s infinite;
+            &-standard, &-ET, &-AE, &-A, &-I, &-N3D {
+                animation: none;
+            }
+            &-standard {
+                background-image: url('../img/standard.jpg') !important;
+            }
+            &-ET {
+                background-image: url('../img/back-ET.jpg');
+            }
+            &-AE {
+                background-image: url('../img/back-AE.jpg')
+            }
+            &-A {
+                background-image: url('../img/back-A.jpg')
+            }
+            &-I {
+                background-image: url('../img/back-I.jpg')
+            }
+            &-N3D {
+                background-image: url('../img/back-N3D.jpg')
+            }
+        }
+    }
+}
+.hero {
+    position: relative;
+    z-index: 50;
+}
+.hero-text {
+    position: absolute;
+    top: 25vmax;
+    width: 100%;
+    &-container {
+        .heroH1 h1 {
+            font-size: 5vmax;
+            font-family: 'Avenir black';
+        }
+        .heroP p {
+            margin-top: 10vh;
+            font-size: 1.2em;
+        }
+        .heroBtn {
+            margin-top: 5vh;
+        }
+    }
+}
+@media (min-width: 992px) {
+    .hero-text {
+        top: 32.5vmin;
+        &-container {
+            .heroH1 h1 {
+                font-size: 7vmin;
+            }
+            .heroP p {
+                font-size: 1.375em;
+            }
+        }
+    }
+}
+.carouselContainer {
+    position: absolute;
+    width: 100%;
+    .owl-carousel {
+        margin-top: 5vh;
+        .item img {
+            width: 225px;
+            height: auto;
+        }
+    }
+}
+//Main Contenu
+.main {
+    position: relative;
+    top: 0;
+    .wrapContent {
+        margin-top: -8vh;
+        padding-top: 8vh;
+        background: #FFF;
+        &P-High {
+            font-size: 1.5em;
+            text-align: center;
+            font-family: 'Avenir heavy';
+        }
+        &Img {
+            padding-left: 0;
+            padding-right: 0;   
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        &Text {
+            h2 {
+                font-size: 1.25em;
+                &.interTitle {
+                    font-size: 1.75em;
+                }
+            }
+            p {
+                font-size: 1.125em;
+            }
+        }
+        &Li {
+            list-style-position: inside;
+            li {
+                font-size: 1.125em;
+            }
+        }
+        &Iframe, &Iframe iframe {
+            height: 450px;
+        }
+        &Iframe.smallIframe, &Iframe iframe.smallIframe {
+            height: 275px;
+        }
+        .cards {
+            font-size: 1em;
+            font-family: 'Avenir medium';
+            margin-top: 5vh;
+            margin-left: 10vw;
+            .cardPicto img {
+                width: 3.75rem;
+                height: auto;
+            }
+            .cardH2 {
+                margin-top: 1vh;
+                font-size: 1.25em;
+            }
+        }
+        .row.numRow {
+            background: #FAFAFA;
+            margin-top: 5vh;
+        }
+        .numbers {
+            margin: 5vh;
+            text-align: center;
+            .number {
+                font-size: 4em;
+                font-family: "Avenir black";
+            }
+            .textNumber {
+                font-size: 1.5em;
+                font-family: "Avenir heavy";
+            }
+        }
+    }
+    .opacity-color{
+        background: #81929F;
+    }
+    .opacity-color img {
+        opacity: 1;
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+    }
+    .opacity-color:hover img {
+        opacity: .5;
+    }
+}
+.main .customerArea, .navigation .customerArea {
+    background: #fff;
+    text-align: center;
+    height: 8vh;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    line-height: 8vh;
+    z-index: 60;
+    a:link, a:visited {
+        color: $primary;
+        text-decoration: none;
+        font-family: 'Avenir medium';
+        font-size: 1.5vmax;
+    }
+}
+.navigation .customerArea {
+    position: relative;
+    height: 10vh;
+    bottom: 10vh;
+    line-height: 10vh;
+    a:link, a:visited {
+        font-size: 3vmax;
+    }
+}
+@media (min-width: 992px) {
+    .main .customerArea, .navigation .customerArea {
+        a:link, a:visited {
+            font-size: 2vmin;
+        }
+    }
+}
+@media (min-width: 1200px) {
+    .main .customerArea, .navigation .customerArea {
+        a:link, a:visited {
+            font-size: 3vmin;
+        }
+    }
+}
+// Classe générique (pour de simples modifications et éviter la répétitivité)
+.stop {
+    position: relative !important;
+    align-self: flex-end;
+}
+.fixed {
+    position: fixed;
+}
+.whiteText {
+    color: white;
+}
+::selection {
+    color: #fff;
+    background: $primary;
+}
